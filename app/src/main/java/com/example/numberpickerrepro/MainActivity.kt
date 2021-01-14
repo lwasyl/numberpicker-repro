@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -44,6 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.btn_gc).setOnClickListener {
             println("GC")
+            repeat(1000) { Activity() }
             System.gc()
         }
 
@@ -97,7 +100,13 @@ class FragmentWithBinding : Fragment() {
 
 class FragmentViewModel : ViewModel() {
     val elements = MutableLiveData<List<String>>()
-    val name = MutableLiveData<String?>()
+    val name = MutableLiveData<Any>().also { it.value = this }
+    val leaking: MutableLiveData<() -> Unit> =
+        MutableLiveData<() -> Unit>().also { it.value = this::leaking }
+
+    private fun leaking() {
+        Toast.makeText(sActivity, this.toString(), Toast.LENGTH_SHORT).show()
+    }
 
     fun add() {
         elements.value = elements.value.orEmpty() + "Number: ${Random.nextInt(10, 100)}"
@@ -106,4 +115,9 @@ class FragmentViewModel : ViewModel() {
     fun remove() {
         elements.value = elements.value.orEmpty().drop(1)
     }
+}
+
+@BindingAdapter("customOnClick")
+fun Button.customOnClick(onClick: () -> Unit) {
+    setOnClickListener { onClick() }
 }

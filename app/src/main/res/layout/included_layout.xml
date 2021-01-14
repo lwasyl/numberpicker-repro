@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.example.numberpickerrepro.FragmentViewModel"
-            />
+            type="com.example.numberpickerrepro.FragmentViewModel" />
 
         <variable
             name="model"
@@ -28,14 +26,17 @@
             android:layout_height="wrap_content"
             android:padding="4dp"
             android:text="@{model}"
-            tools:text="asd"
-            />
+            tools:text="asd" />
 
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="type here..."
-            android:text="@={viewModel.name}"
-            />
+            android:text="@{viewModel.name.toString()}" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="leaking"
+            app:customOnClick="@{viewModel.leaking}" />
     </LinearLayout>
 </layout>

@@ -22,3 +22,16 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+gradle.taskGraph.beforeTask { Task task ->
+    if (task.name == "dupa") {
+        println(logger.class)
+    }
+}
+
+task dupa {
+    outputs.upToDateWhen { false }
+    logger.info("Info")
+    Thread.sleep(400)
+    logger.info("Info2")
+}
