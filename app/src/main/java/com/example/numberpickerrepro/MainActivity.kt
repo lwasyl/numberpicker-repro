@@ -1,6 +1,8 @@
 package com.example.numberpickerrepro
 
 import android.app.Activity
+import android.content.ComponentName
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
@@ -34,10 +37,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         findViewById<Button>(R.id.btn_add).setOnClickListener {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, FragmentWithBinding())
-                .addToBackStack(null)
-                .commit()
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.fragment_container, FragmentWithBinding())
+//                .addToBackStack(null)
+//                .commit()
+
+            Intent().apply {
+                component =
+                    ComponentName("com.android.chrome", "com.google.android.apps.chrome.Main")
+                action = Intent.ACTION_VIEW
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                type = "text/html"
+                data = "data:text/html,<h1>Hello World</h1>".toUri()
+            }.let { startActivity(it) }
         }
 
         findViewById<Button>(R.id.btn_pop).setOnClickListener {
