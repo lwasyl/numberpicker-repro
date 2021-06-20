@@ -1,19 +1,39 @@
 package com.example.numberpickerrepro
 
-import androidx.appcompat.app.AppCompatActivity
+import com.example.FakeSuspendableCallback
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import kotlin.coroutines.EmptyCoroutineContext
 
-class MainActivity : AppCompatActivity()
-
-fun foo() {}
-
-suspend fun bar() {}
-
-suspend fun boo(
-    a: () -> Unit,
-    c: suspend () -> Unit,
+data class Foo(
+    val a: Int,
+    val b: Int,
+    val f: suspend () -> Unit
 ) {
-    boo(
-        c,
-        a,
-    )
+}
+
+class Dupa {
+    private val x = FakeSuspendableCallback()
+
+    init {
+        CoroutineScope(EmptyCoroutineContext).launch {
+            a {
+                a {
+                    a {
+                        Foo(
+                            a = 1,
+                            b = 2,
+                            f = x::invoke,
+                        )
+
+                    }
+                }
+            }
+        }
+    }
+
+    suspend fun a(z: suspend () -> Unit) {
+        CoroutineScope(EmptyCoroutineContext).launch { z() }
+    }
+
 }

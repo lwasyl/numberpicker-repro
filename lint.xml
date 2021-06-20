@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- Disabled because of bugs -->
+    <issue id="UseAppTint" severity="ignore" /> <!-- https://issuetracker.google.com/issues/158295171 -->
+    <issue id="RtlEnabled" severity="ignore" /> <!-- https://issuetracker.google.com/issues/178796185 -->
+    <issue id="UnpackedNativeCode" severity="ignore" /> <!-- https://issuetracker.google.com/issues/37132359 -->
+
+    <!-- TODO: issues to be addressed -->
+    <issue id="Autofill" severity="warning" />
+    <issue id="VectorRaster" severity="warning" />
+    <issue id="VectorPath" severity="warning" />
+    <issue id="SyntheticAccessor" severity="warning" />
+    <issue id="SelectableText" severity="warning" />
+    <issue id="ContentDescription" severity="warning" />
+    <issue id="TypographyQuotes" severity="warning" />
+    <issue id="IconDensities" severity="warning" />
+
+    <issue id="GoogleAppIndexingApiWarning" severity="ignore" />
+    <issue id="SmallSp" severity="ignore" />
+    <issue id="DuplicateStrings" severity="ignore" />
+    <issue id="UseCompoundDrawables" severity="ignore" />
+    <issue id="ImplicitSamInstance" severity="ignore" /> <!-- Triggers some false positives and doesn't provide much value -->
+    <issue id="DalvikOverride" severity="ignore" /> <!-- https://issuetracker.google.com/issues/184759546 -->
+
+    <issue id="all" severity="error" />
+</lint>
