@@ -1,15 +1,13 @@
-import com.example.TestPlugin
-
 buildscript {
-    ext.kotlin_version = "1.4.21"
+    ext.kotlin_version = "1.5.10"
 
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:4.1.2"
+        classpath "com.android.tools.build:gradle:4.2.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -17,25 +15,10 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-
-gradle.taskGraph.beforeTask { Task task ->
-    if (task.name == "dupa") {
-        println(logger.class)
-    }
-}
-
-task dupa {
-    outputs.upToDateWhen { false }
-    logger.info("Info")
-    Thread.sleep(400)
-    logger.info("Info2")
-}
-
-apply plugin: TestPlugin
